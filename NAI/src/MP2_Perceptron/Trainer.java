@@ -1,6 +1,7 @@
 package MP2_Perceptron;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -15,6 +16,10 @@ public class Trainer {
         this.trainSet = trainSet;
         this.testSet = testSet;
         targetClassName = trainSet.labels.getFirst();
+
+        System.out.println("Trainer initiated:" +
+                "\n\tLearning ratio: " + a +
+                "\n\tTarget class name (default): " + targetClassName);
     }
 
     public Perceptron createPerceptron() {
@@ -33,6 +38,8 @@ public class Trainer {
             int d = item.label.equals(targetClassName)?1:0;
             if (y != d) p.learn(item.params, d, y, a);
         }
+        System.out.println("Perceptron trained.");
+        System.out.println(p);
     }
 
     public void testPerceptron(Perceptron p){
@@ -49,7 +56,7 @@ public class Trainer {
             if (y == d) {
                 accuracy.get(item.label)[1]++;
             }
-            System.out.println("Entry class: " + item.label + "\t" + (y==d?"PASS":"FAIL"));
+            //System.out.println("Entry class: " + item.label + "\t" + (y==d?"PASS":"FAIL"));
         }
 
         List<Double> accuracies = new ArrayList<>();
@@ -65,5 +72,12 @@ public class Trainer {
         }
         ac /= accuracies.size();
         System.out.println("Overall accuracy: " + ac + "%");
+    }
+
+    @Override
+    public String toString() {
+        return "Trainer:" +
+                "\n\tLearning ratio: " + a +
+                "\n\tTarget class name (default): " + targetClassName;
     }
 }
