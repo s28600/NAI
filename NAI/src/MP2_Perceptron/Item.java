@@ -4,18 +4,18 @@ import java.util.List;
 
 public class Item {
     List<Double> params;
-    String name;
+    String label;
 
-    public Item(List<Double> params, String name) {
+    public Item(List<Double> params, String label) {
         this.params = params;
-        this.name = name;
+        this.label = label;
     }
 
     @Override
     public String toString() {
         return "Item{" +
                 "params=" + params +
-                ", name='" + name + '\'' +
+                ", name='" + label + '\'' +
                 '}';
     }
 }

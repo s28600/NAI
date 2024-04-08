@@ -2,13 +2,13 @@ package MP2_Perceptron;
 
 import java.io.IOException;
 import java.nio.file.Paths;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 public class DataSet {
-    private final List<Item> items = new ArrayList<>();
-    private static final double[] range = new double[2];
+    final List<Item> entries = new ArrayList<>();
+    final double[] range = new double[2];
+    int entryParamsNumber;
+    final LinkedHashSet<String> labels = new LinkedHashSet<>();
 
     public DataSet(String filepath) throws IOException {
         Scanner scanner = new Scanner(Paths.get(filepath));
@@ -23,11 +23,13 @@ public class DataSet {
                 if (param < range[0]) range[0] = param;
                 if (param > range[1]) range[1] = param;
             }
-            items.add(new Item(params, line[line.length-1]));
+            labels.add(line[line.length-1]);
+            entries.add(new Item(params, line[line.length-1]));
         }
+        entryParamsNumber = entries.getFirst().params.size();
+        Collections.shuffle(entries);
     }
 
-    public List<Item> getItems(){return items;}
     public double getMin(){return range[0];}
     public double getMax(){return range[1];}
 }
