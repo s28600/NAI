@@ -8,5 +8,6 @@ public class Main {
         Perceptron p = trainer.createPerceptron();
         trainer.trainPerceptron(p);
         System.out.println(p);
+        trainer.testPerceptron(p);
     }
 }
