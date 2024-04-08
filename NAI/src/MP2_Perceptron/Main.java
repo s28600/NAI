@@ -9,9 +9,9 @@ public class Main {
         String testSetPath = args[2];
 
         DataSet trainSet = new DataSet(trainSetPath);
-        Perceptron p = new Perceptron(a ,trainSet);
-        System.out.println(p);
+        Perceptron p = new Perceptron(a, trainSet, trainSet.getItems().getFirst().name);
 
         DataSet testSet = new DataSet(testSetPath);
+
     }
 }

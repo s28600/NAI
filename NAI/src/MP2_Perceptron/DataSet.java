@@ -7,8 +7,8 @@ import java.util.List;
 import java.util.Scanner;
 
 public class DataSet {
-    private List<Item> items = new ArrayList<>();
-    private static double[] range = new double[2];
+    private final List<Item> items = new ArrayList<>();
+    private static final double[] range = new double[2];
 
     public DataSet(String filepath) throws IOException {
         Scanner scanner = new Scanner(Paths.get(filepath));
