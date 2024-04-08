@@ -75,7 +75,7 @@ public class Main {
             System.out.print("Enter " + paramsNumber +  " parameters: ");
             List<Double> params = new ArrayList<>();
             for (int i = 0; i < paramsNumber; i++) {
-                params.add(scanner.nextDouble());
+                params.add(Double.parseDouble(scanner.next()));
             }
             Item item = new Item(params, "");
             System.out.println("Answer is: " + kNN(k, item, trainSet));
