@@ -54,8 +54,11 @@ public class UI {
         while (true) {
             String input = scanner.nextLine();
             try {
-                trainer.a = Double.parseDouble(input);
-                return;
+                double temp = Double.parseDouble(input);
+                if (temp > 0 && temp < 1){
+                    trainer.a = temp;
+                    return;
+                }
             } catch (NumberFormatException ignored) {}
         }
     }
