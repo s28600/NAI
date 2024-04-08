@@ -1,5 +1,7 @@
 package MP2_Perceptron;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class UI {
@@ -19,23 +21,17 @@ public class UI {
 
         while (true) {
             int option = readOption();
+            System.out.println();
             switch (option){
-                case 1 -> {
-                    System.out.println();
-                    trainer.testPerceptron(p);
-                }
-                case 2 -> {
-                    System.out.println();
-                    trainer.trainPerceptron(p);
-                }
+                case 1 -> trainer.testPerceptron(p);
+                case 2 -> trainer.trainPerceptron(p);
+                case 3 -> checkForInput(trainer, p);
                 case 4 -> {
-                    System.out.println();
                     changeA(trainer);
                     System.out.println("Trainer learning ratio updated.");
                     System.out.println(trainer);
                 }
                 case 5 -> {
-                    System.out.println();
                     changeTargetClass(trainer);
                     System.out.println("Trainer target class updated.");
                     System.out.println(trainer);
@@ -44,6 +40,22 @@ public class UI {
                     scanner.close();
                     return;
                 }
+            }
+        }
+    }
+
+    private static void checkForInput(Trainer trainer, Perceptron p){
+        while (true) {
+            System.out.print("Please enter " + trainer.trainSet.entryParamsNumber + " values: ");
+            List<Double> params = new ArrayList<>();
+            try {
+                for (int i = 0; i < trainer.trainSet.entryParamsNumber; i++) {
+                    params.add(Double.parseDouble(scanner.next()));
+                }
+                System.out.println("y=" + p.compute(params));
+                return;
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input - please try again");
             }
         }
     }
