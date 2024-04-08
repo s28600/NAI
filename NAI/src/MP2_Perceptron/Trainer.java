@@ -28,7 +28,7 @@ public class Trainer {
         for (Item item : trainSet.entries){
             int y = p.compute(item.params);
             int d = item.label.equals(trainSet.labels.getFirst())?1:0;
-            if (y!=1 || d!= 1) {
+            if (y != d) {
                 p.learn(item.params, d, y, a);
             }
         }
@@ -48,7 +48,7 @@ public class Trainer {
             if (y == d) {
                 accuracy.get(item.label)[1]++;
             }
-            System.out.println("Entry label: " + item.label + ", y=" + y);
+            System.out.println("Entry label: " + item.label + "\t" + (y==d?"PASS":"FAIL"));
         }
 
         for (String key : accuracy.keySet()){
