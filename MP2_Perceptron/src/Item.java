@@ -1,5 +1,3 @@
-package MP2_Perceptron;
-
 import java.util.List;
 
 public class Item {

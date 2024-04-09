@@ -1,5 +1,3 @@
-package MP1_KNN;
-
 import java.util.List;
 
 public class Item{

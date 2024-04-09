@@ -1,5 +1,3 @@
-package MP2_Perceptron;
-
 import java.io.FileNotFoundException;
 
 public class Main {
