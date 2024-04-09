@@ -27,13 +27,14 @@ public class UI {
                 case 1 -> trainer.testPerceptron(p);
                 case 2 -> trainer.trainPerceptron(p, true);
                 case 3 -> {
-                    System.out.print("Please enter how many times to train perceptron (integer): ");
-                    int n = 0;
+                    System.out.print("Please enter how many times to train perceptron (n >= 0): ");
+                    int n = -1;
                     do {
                         try {
-                            n = Integer.parseInt(scanner.next());
+                            int input = Integer.parseInt(scanner.next());
+                            if (input >= 0) n = input;
                         } catch (NumberFormatException ignored) {}
-                    } while (n == 0);
+                    } while (n == -1);
                     trainer.trainNTimes(p, n);
                 }
                 case 4 -> checkForInput(trainer, p);
