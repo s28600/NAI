@@ -10,6 +10,7 @@ public class UI {
             "\nPlease select option:",
             "Test perceptron",
             "Train perceptron",
+            "Train (n) times",
             "Provide test vector manually",
             "Change learning ratio",
             "Change target class",
@@ -17,26 +18,36 @@ public class UI {
 
     public static void start(Trainer trainer){
         Perceptron p = trainer.createPerceptron();
-        trainer.trainPerceptron(p);
+        trainer.trainPerceptron(p, true);
 
         while (true) {
             int option = readOption();
             System.out.println();
             switch (option){
                 case 1 -> trainer.testPerceptron(p);
-                case 2 -> trainer.trainPerceptron(p);
-                case 3 -> checkForInput(trainer, p);
-                case 4 -> {
+                case 2 -> trainer.trainPerceptron(p, true);
+                case 3 -> {
+                    System.out.print("Please enter how many times to train perceptron (integer): ");
+                    int n = 0;
+                    do {
+                        try {
+                            n = Integer.parseInt(scanner.next());
+                        } catch (NumberFormatException ignored) {}
+                    } while (n == 0);
+                    trainer.trainNTimes(p, n);
+                }
+                case 4 -> checkForInput(trainer, p);
+                case 5 -> {
                     changeA(trainer);
                     System.out.println("Trainer learning ratio updated.");
                     System.out.println(trainer);
                 }
-                case 5 -> {
+                case 6 -> {
                     changeTargetClass(trainer);
                     System.out.println("Trainer target class updated.");
                     System.out.println(trainer);
                 }
-                case 6 -> {
+                case 7 -> {
                     scanner.close();
                     return;
                 }

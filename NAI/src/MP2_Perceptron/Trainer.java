@@ -32,14 +32,23 @@ public class Trainer {
         return new Perceptron(weights, bias);
     }
 
-    public void trainPerceptron(Perceptron p){
+    public void trainPerceptron(Perceptron p, boolean textOutput){
         for (Item item : trainSet.entries){
             int y = p.compute(item.params);
             int d = item.label.equals(targetClassName)?1:0;
             if (y != d) p.learn(item.params, d, y, a);
         }
-        System.out.println("Perceptron trained.");
-        System.out.println(p);
+        if (textOutput){
+            System.out.println("Perceptron trained.");
+            System.out.println(p);
+        }
+    }
+
+    public void trainNTimes(Perceptron p, int n){
+        for (int i = 0; i < n-1; i++) {
+            trainPerceptron(p, false);
+        }
+        trainPerceptron(p, true);
     }
 
     public void testPerceptron(Perceptron p){
