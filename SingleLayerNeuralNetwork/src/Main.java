@@ -1,8 +1,17 @@
 import java.io.IOException;
-import java.util.Arrays;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 public class Main {
     public static void main(String[] args) throws IOException {
-        System.out.println(Arrays.toString(LanguageHandler.getCharsVector("TrainingData/FR/Bleach (BLEACH, ブリーチ, Burīchi) est .txt")));
+        if (!Files.exists(Paths.get("TrainingData"))){
+            System.out.println("No training data was found - exiting.");
+            return;
+        }
+
+        DataHandler dataHandler = new DataHandler("TrainingData");
+        System.out.println(dataHandler.languageVectors);
+
+        //System.out.println(Arrays.toString(LanguageHandler.getCharsVector("TrainingData/FR/Bleach (BLEACH, ブリーチ, Burīchi) est .txt")));
     }
 }

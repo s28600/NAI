@@ -1,14 +1,20 @@
+import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.LinkedHashMap;
+import java.util.*;
 
-public class LanguageHandler {
-    public static String readFileContent(String filepath){
-        try {
-            return Files.readString(Paths.get(filepath));
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+public class DataHandler {
+    HashMap<String, List<double[]>> languageVectors = new HashMap<>();
+    public DataHandler(String trainingDataDirPath) throws IOException {
+        File trainingDataDir = new File(trainingDataDirPath);
+
+        for (File langDir : trainingDataDir.listFiles()){
+            File[] files = langDir.listFiles();
+            List<double[]> vectors = new ArrayList<>();
+            for (File file : files){
+                vectors.add(getCharsVector(Files.readString(file.toPath())));
+            }
+            languageVectors.put(langDir.getName(), vectors);
         }
     }
 
