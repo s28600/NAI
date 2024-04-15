@@ -33,7 +33,7 @@ public class Perceptron {
         for (int i = 0; i < params.length; i++) {
             weights[i] += (d-y)*a*params[i];
         }
-        bias -= (1-y)*a;
+        bias -= (d-y)*a;
     }
 
     @Override
