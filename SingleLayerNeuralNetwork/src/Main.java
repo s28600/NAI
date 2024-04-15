@@ -12,12 +12,13 @@ public class Main {
         }
 
         DataHandler dataHandler = new DataHandler("TrainingData");
-        for (LangVector l : dataHandler.data) System.out.println(l);
-        System.out.println(Arrays.toString(dataHandler.labels));
+        Layer.setDebug(true);
         Layer layer = new Layer(0.5, dataHandler);
+        layer.train();
 
         while (true){
             Scanner scanner = new Scanner(System.in);
+            System.out.println("\nEnter something and pray, God rest your soul:");
             String text = scanner.next();
             System.out.println("\n" + layer.compute(text));
         }
