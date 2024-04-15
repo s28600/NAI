@@ -1,6 +1,7 @@
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.Arrays;
 
 public class Main {
     public static void main(String[] args) throws IOException {
@@ -10,7 +11,8 @@ public class Main {
         }
 
         DataHandler dataHandler = new DataHandler("TrainingData");
-        System.out.println(dataHandler.languageVectors);
+        for (LangVector l : dataHandler.data) System.out.println(l);
+        System.out.println(Arrays.toString(dataHandler.availableLabels));
 
         //System.out.println(Arrays.toString(LanguageHandler.getCharsVector("TrainingData/FR/Bleach (BLEACH, ブリーチ, Burīchi) est .txt")));
     }

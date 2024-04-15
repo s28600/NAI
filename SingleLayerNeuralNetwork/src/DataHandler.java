@@ -4,18 +4,23 @@ import java.nio.file.Files;
 import java.util.*;
 
 public class DataHandler {
-    HashMap<String, List<double[]>> languageVectors = new HashMap<>();
-    public DataHandler(String trainingDataDirPath) throws IOException {
-        File trainingDataDir = new File(trainingDataDirPath);
+    List<LangVector> data = new ArrayList<>();
+    String[] availableLabels;
 
-        for (File langDir : trainingDataDir.listFiles()){
-            File[] files = langDir.listFiles();
-            List<double[]> vectors = new ArrayList<>();
+    public DataHandler(String trainingDataDirPath) throws IOException {
+        File[] langDirs = new File(trainingDataDirPath).listFiles();
+        List<String> labels = new ArrayList<>();
+
+        for (File dir : langDirs){
+            File[] files = dir.listFiles();
+            labels.add(dir.getName());
             for (File file : files){
-                vectors.add(getCharsVector(Files.readString(file.toPath())));
+                data.add(new LangVector(dir.getName(), getCharsVector(Files.readString(file.toPath()))));
             }
-            languageVectors.put(langDir.getName(), vectors);
         }
+
+        availableLabels = labels.toArray(new String[0]);
+        Collections.shuffle(data);
     }
 
     public static double[] getCharsVector(String input){
