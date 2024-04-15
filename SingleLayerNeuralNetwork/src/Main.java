@@ -2,6 +2,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.Arrays;
+import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) throws IOException {
@@ -12,7 +13,12 @@ public class Main {
 
         DataHandler dataHandler = new DataHandler("TrainingData");
         for (LangVector l : dataHandler.data) System.out.println(l);
-        System.out.println(Arrays.toString(dataHandler.availableLabels));
+        System.out.println(Arrays.toString(dataHandler.labels));
+        Layer layer = new Layer(0.5, dataHandler);
+
+        Scanner scanner = new Scanner(System.in);
+        String text = scanner.next();
+        System.out.println("\n" + layer.compute(text));
 
         //System.out.println(Arrays.toString(LanguageHandler.getCharsVector("TrainingData/FR/Bleach (BLEACH, ブリーチ, Burīchi) est .txt")));
     }

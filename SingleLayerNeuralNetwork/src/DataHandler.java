@@ -5,7 +5,7 @@ import java.util.*;
 
 public class DataHandler {
     List<LangVector> data = new ArrayList<>();
-    String[] availableLabels;
+    String[] labels;
 
     public DataHandler(String trainingDataDirPath) throws IOException {
         File[] langDirs = new File(trainingDataDirPath).listFiles();
@@ -19,7 +19,7 @@ public class DataHandler {
             }
         }
 
-        availableLabels = labels.toArray(new String[0]);
+        this.labels = labels.toArray(new String[0]);
         Collections.shuffle(data);
     }
 

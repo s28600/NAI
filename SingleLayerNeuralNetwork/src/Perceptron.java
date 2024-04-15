@@ -21,7 +21,7 @@ public class Perceptron {
         return net;
     }
 
-    public double y(double[] params){
+    public double compute(double[] params){
         return net(params)>=0?1:0;
     }
 
