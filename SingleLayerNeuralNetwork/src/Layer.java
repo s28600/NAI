@@ -2,25 +2,28 @@ import java.util.*;
 
 public class Layer {
     double a;
-    LinkedHashMap<String, Perceptron> perceptrons = new LinkedHashMap<>();
     DataHandler dataHandler;
+    List<LangPerceptron> perceptrons = new ArrayList<>();
 
     public Layer(double a, DataHandler dataHandler) {
         this.dataHandler = dataHandler;
+
         for (String label : dataHandler.labels){
             double[] weights = new double[dataHandler.data.getFirst().vector.length];
             for (int i = 0; i < weights.length; i++) {
                 weights[i] = Math.random();
             }
-            perceptrons.put(label, new Perceptron(weights, Math.random()));
+            perceptrons.add(new LangPerceptron(weights, Math.random(), label));
         }
         System.out.println(this);
 
-        for (Map.Entry<String, Perceptron> entry : perceptrons.entrySet()){
-            for (LangVector langVector : dataHandler.data){
-                int y = (int) entry.getValue().compute(langVector.vector);
-                int d = langVector.label.equals(entry.getKey())?1:0;
-                entry.getValue().learn(langVector.vector, d, y, a);
+        for (int i = 0; i < 5; i++) {
+            for (LangPerceptron perceptron : perceptrons){
+                for (LangVector langVector : dataHandler.data){
+                    int y = (int) perceptron.compute(langVector.vector);
+                    int d = langVector.label.equals(perceptron.label)?1:0;
+                    if (y!=d) perceptron.learn(langVector.vector, d, y, a);
+                }
             }
         }
         System.out.println(this);
@@ -29,15 +32,17 @@ public class Layer {
     public String compute(String text){
         int maxIndex = 0;
         double max = -1;
-        List<Double> out = new ArrayList<>();
+        double[] results = new double[perceptrons.size()];
 
-        for (Map.Entry<String, Perceptron> entry : perceptrons.entrySet()){
-            out.add(entry.getValue().net(DataHandler.getCharsVector(text)));
+        for (int i = 0; i < perceptrons.size(); i++) {
+            results[i] = perceptrons.get(i).net(DataHandler.getCharsVector(text));
         }
 
-        for (int i = 0; i < out.size(); i++) {
-            if (out.get(i) > max) {
-                max = out.get(i);
+        System.out.println("\n" + Arrays.toString(results));
+
+        for (int i = 0; i < results.length; i++) {
+            if (results[i] > max) {
+                max = results[i];
                 maxIndex = i;
             }
         }
@@ -48,8 +53,8 @@ public class Layer {
     @Override
     public String toString() {
         StringBuilder out = new StringBuilder();
-        for (Map.Entry<String, Perceptron> entry : perceptrons.entrySet()){
-            out.append("\n").append(entry.getKey()).append(" ").append(entry.getValue());
+        for (LangPerceptron p : perceptrons){
+            out.append("\n").append(p.label).append(" ").append(p);
         }
         return out.toString();
     }

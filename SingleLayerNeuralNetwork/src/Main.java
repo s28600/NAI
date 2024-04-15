@@ -16,10 +16,10 @@ public class Main {
         System.out.println(Arrays.toString(dataHandler.labels));
         Layer layer = new Layer(0.5, dataHandler);
 
-        Scanner scanner = new Scanner(System.in);
-        String text = scanner.next();
-        System.out.println("\n" + layer.compute(text));
-
-        //System.out.println(Arrays.toString(LanguageHandler.getCharsVector("TrainingData/FR/Bleach (BLEACH, ブリーチ, Burīchi) est .txt")));
+        while (true){
+            Scanner scanner = new Scanner(System.in);
+            String text = scanner.next();
+            System.out.println("\n" + layer.compute(text));
+        }
     }
 }
