@@ -20,7 +20,6 @@ public class DataHandler {
         }
 
         this.labels = labels.toArray(new String[0]);
-        Collections.shuffle(data);
     }
 
     public static double[] getCharsVector(String input){

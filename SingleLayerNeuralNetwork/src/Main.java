@@ -18,9 +18,23 @@ public class Main {
 
         while (true){
             Scanner scanner = new Scanner(System.in);
-            System.out.println("\nEnter something and pray, God rest your soul:");
-            String text = scanner.next();
-            System.out.println("\n" + layer.compute(text));
+            System.out.print("\nEnter something and pray, God rest your soul:" +
+                    "\n(Type \"Amen\" to enter, \"Lord forgive me\" to quit)" +
+                    "\n-> ");
+            scanner.nextLine();
+            String input = "";
+
+            while (true) {
+                System.out.print("(Type \"Amen\" to enter, \"Lord forgive me\" to quit)\n-> ");
+                String line = scanner.nextLine();
+                if (line.equals("Lord forgive me"))
+                    return;
+                if (line.equals("Amen")) {
+                    System.out.println("Result: " + layer.compute(input) + "\n");
+                    continue;
+                }
+                input += line;
+            }
         }
     }
 }

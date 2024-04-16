@@ -11,6 +11,14 @@ public class Layer {
         this.dataHandler = dataHandler;
         this.a = a;
 
+        if (debug) {
+            for (LangVector vec : dataHandler.data){
+                System.out.println(vec);
+            }
+            System.out.println(Arrays.toString(dataHandler.labels));
+            System.out.println();
+        }
+
         for (String label : dataHandler.labels){
             double[] weights = new double[dataHandler.data.getFirst().vector.length];
             for (int i = 0; i < weights.length; i++) {
@@ -64,10 +72,15 @@ public class Layer {
         int maxIndex = 0;
         double max = -1;
         double[] results = new double[perceptrons.size()];
+        LangVector vec = new LangVector(null, DataHandler.getCharsVector(text));
 
-        if (debug) System.out.println();
+        if (debug) {
+            System.out.println();
+            System.out.println("Text to proportions vector: " + Arrays.toString(vec.vector));
+        }
+
         for (int i = 0; i < perceptrons.size(); i++) {
-            results[i] = perceptrons.get(i).net(DataHandler.getCharsVector(text));
+            results[i] = perceptrons.get(i).net(vec.vector);
             if (debug) {
                 System.out.println("Perceptron " + perceptrons.get(i).label + " activation: " + results[i]);
             }
