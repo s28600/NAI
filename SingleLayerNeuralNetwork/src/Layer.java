@@ -40,6 +40,7 @@ public class Layer {
             iterations = 0;
             do {
                 hits = 0;
+                Collections.shuffle(dataHandler.data);
                 for (LangVector langVector : dataHandler.data){
                     int y = (int) perceptron.compute(langVector.vector);
                     int d = langVector.label.equals(perceptron.label)?1:0;
