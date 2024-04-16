@@ -76,6 +76,8 @@ public class Layer {
 
         if (debug) {
             System.out.println();
+            System.out.println("Input read: " + text);
+            System.out.println("Filtered: " + text.replaceAll("[^a-zA-Z]","").toUpperCase());
             System.out.println("Text to proportions vector: " + Arrays.toString(vec.vector));
         }
 
@@ -85,8 +87,6 @@ public class Layer {
                 System.out.println("Perceptron " + perceptrons.get(i).label + " activation: " + results[i]);
             }
         }
-
-        System.out.println(Arrays.toString(results));
 
         for (int i = 0; i < results.length; i++) {
             if (results[i] > max) {

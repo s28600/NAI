@@ -24,6 +24,7 @@ public class DataHandler {
 
     public static double[] getCharsVector(String input){
         String text = input.replaceAll("[^a-zA-Z]","").toUpperCase();
+        if (text.isEmpty()) throw new RuntimeException("Input produced empty string, try another input data.");
 
         LinkedHashMap<Character, Integer> charsCount = new LinkedHashMap<>();
         for (int i = 65; i <= 90; i++) {
