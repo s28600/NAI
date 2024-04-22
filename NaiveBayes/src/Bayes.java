@@ -2,9 +2,9 @@ import java.util.*;
 
 public class Bayes {
     static boolean DEBUG = false;
-    List<String[]> trainSet;
-    HashMap<Integer, List<String>> availableAttributes;
-    HashMap<String, Integer> decisiveAttributesCount;
+    private final List<String[]> trainSet;
+    private final HashMap<Integer, List<String>> availableAttributes;
+    private final HashMap<String, Integer> decisiveAttributesCount;
 
     public Bayes(List<String[]> trainSet) {
         this.trainSet = trainSet;
@@ -71,7 +71,7 @@ public class Bayes {
         }
         probability *= (double) decisiveAttributesCount.get(condition)/trainSet.size();
 
-        if (DEBUG) System.out.println("Count for condition \"" + condition + "\": " + Arrays.toString(attributesCount));
+        if (DEBUG) System.out.println("Count for verdict \"" + condition + "\": " + Arrays.toString(attributesCount));
 
         return probability;
     }
@@ -83,6 +83,7 @@ public class Bayes {
         double[] verdictsProbabilities = new double[decisiveAttributesCount.size()];
         for (int i = 0; i < verdicts.length; i++) {
             verdictsProbabilities[i] = conditionalProbability(attributes, verdicts[i]);
+            if (DEBUG) System.out.println("Probability for verdict " + verdicts[i] + ": " + verdictsProbabilities[i]);
         }
         int index = 0;
         double max = 0;
@@ -93,5 +94,31 @@ public class Bayes {
             }
         }
         return verdicts[index];
+    }
+
+    public void checkTrainSet(){
+        System.out.println();
+        for (int i = 0; i < trainSet.size(); i++) {
+            System.out.println("Entry " + (i+1) + ":");
+            String[] line = new String[trainSet.get(i).length-1];
+            for (int j = 0; j < trainSet.get(i).length-1; j++) {
+                line[j] = trainSet.get(i)[j];
+            }
+            String expected = trainSet.get(i)[trainSet.get(i).length-1];
+            String actual = getVerdict(line);
+            System.out.println("Expected verdict: " + expected + ", actual verdict: " + actual + " " + (!expected.equals(actual)?"FAIL":""));
+        }
+    }
+
+    public void checkTestSet(List<String[]> testSet){
+        System.out.println();
+        for (int i = 0; i < testSet.size(); i++) {
+            System.out.println("Entry " + (i+1) + ":");
+            String[] line = new String[testSet.get(i).length];
+            for (int j = 0; j < testSet.get(i).length; j++) {
+                line[j] = testSet.get(i)[j];
+            }
+            System.out.println("Verdict: " + getVerdict(line));
+        }
     }
 }
