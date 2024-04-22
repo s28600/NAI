@@ -1,7 +1,7 @@
 import java.util.*;
 
 public class Bayes {
-    static final boolean DEBUG = false;
+    static boolean DEBUG = false;
     List<String[]> trainSet;
     HashMap<Integer, List<String>> availableAttributes;
     HashMap<String, Integer> decisiveAttributesCount;
@@ -28,8 +28,17 @@ public class Bayes {
             decisiveAttributesCount.replace(line[line.length-1], decisiveAttributesCount.get(line[line.length-1])+1);
         }
 
-        System.out.println(availableAttributes);
-        System.out.println(decisiveAttributesCount);
+        if (DEBUG){
+            System.out.println("Training data initiated.");
+            System.out.println("Available attributes by index:");
+            for (Integer key : availableAttributes.keySet()){
+                System.out.println("\t" + key + " = " + availableAttributes.get(key));
+            }
+            System.out.println("Available decisive attributes: ");
+            for (String key : decisiveAttributesCount.keySet()){
+                System.out.println("\t" + key);
+            }
+        }
     }
 
     public double conditionalProbability(String[] attributes, String condition){
@@ -62,13 +71,14 @@ public class Bayes {
         }
         probability *= (double) decisiveAttributesCount.get(condition)/trainSet.size();
 
-        //System.out.println(Arrays.toString(attributes));
-        //System.out.println(Arrays.toString(attributesCount));
+        if (DEBUG) System.out.println("Count for condition \"" + condition + "\": " + Arrays.toString(attributesCount));
 
         return probability;
     }
 
     public String getVerdict(String[] attributes){
+        if (DEBUG) System.out.println("Attributes delivered: " + Arrays.toString(attributes));
+
         String[] verdicts = decisiveAttributesCount.keySet().toArray(new String[0]);
         double[] verdictsProbabilities = new double[decisiveAttributesCount.size()];
         for (int i = 0; i < verdicts.length; i++) {
