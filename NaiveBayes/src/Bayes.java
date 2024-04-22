@@ -3,7 +3,7 @@ import java.util.*;
 public class Bayes {
     static boolean DEBUG = false;
     private final List<String[]> trainSet;
-    private final HashMap<Integer, List<String>> availableAttributes;
+    final HashMap<Integer, List<String>> availableAttributes;
     private final HashMap<String, Integer> decisiveAttributesCount;
 
     public Bayes(List<String[]> trainSet) {
