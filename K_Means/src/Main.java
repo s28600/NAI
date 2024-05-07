@@ -1,6 +1,5 @@
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class Main {
     public static void main(String[] args) {
@@ -17,6 +16,6 @@ public class Main {
         }
 
         KMeans kMeans = new KMeans(data, k);
-        kMeans.initializeCentroids();
+        kMeans.calculate();
     }
 }
